@@ -37,17 +37,31 @@ This section discusses configs applied to the Cluster template files for differe
 
 
 ## GRIDENGINE
-
+* GridEngine will use `/etc/hosts` (aka cyclecloud.hosts.standalone_dns) with multiple subnets and an alternate prefix
+* Cluster Template changes:
+  * Added configs to `node defaults` to specify subnets used and a common dns name (alt_suffix)
+    * `cyclecloud.hosts.standalone_dns.alt_suffix = private.ccmr.net` can be set to any name to include the default name in the template
+    * `cyclecloud.hosts.standalone_dns.subnets = 10.40.0.0/24, 10.41.0.0/24` should list all subnets of the cluster in all Azure Regions
+  * `SubnetId` and `Region` settings are moved from `[[node defaults]]` to each defined `node` and `nodearray`; all values are hardcoded in the template
+    * `SubnetId` is of the format `resource-group-namevnet-name/subnet-name` with placeholder name in the template
+    * `Region` can be determined by the azure-cli command `az account list-locations -o table`
+  * Removed `parameters Region` and `parameters Networking` from the Parameters section as they are hardcoded in the sections above it
+  * Hardcoded Default OS values to avoid issues with UI validations
+  * Hardcode changes to VM types, core counts, etc
+* Create new cluster named `GridEngine-Multiregion` as follows:  
+> cyclecloud import_cluster GridEngine-Multiregion -c "Grid Engine" -f gridengine-multiregion-git.txt  
 
 ## SLURM  
 * Slurm will require a Private DNS zone with all cluster VNETs linked as described [here](https://docs.microsoft.com/en-us/azure/dns/private-dns-getstarted-portal)
 * Cluster Template changes:
   * `SubnetId` and `Region` settings are moved from `[[node defaults]]` to each defined `node` and `nodearray`; all values are hardcoded in the template
-    * `SubnetId` is of the format `resource-group-namevnet-name/subnet-name` with placeholder name in the template
+    * `SubnetId` is of the format `resource-group-name/vnet-name/subnet-name` with placeholder name in the template
     * `Region` can be determined by the azure-cli command `az account list-locations -o table`
-  * Added a `cloud-init` in `node defaults` to update Network Manager search-domain to the Private DNS name
-  * Removed `parameter Region` and `parameter Networking` from the Parameters section as they are hardcoded in the sections above it
+  * Added a `cloud-init` in `node defaults` to update Network Manager search-domain to the Private DNS name. Update the default value with your Private DNS name.
+  * Removed `parameters Region` and `parameters Networking` from the Parameters section as they are hardcoded in the sections above it
   * Hardcoded Default OS values to avoid issues with UI validations
-* Create new cluster named `Slurm-Multiregion` as follows:  `cyclecloud import_cluster Slurm-Multiregion -c Slurm -f slurm-multiregion-git.txt`
+  * Hardcode changes to VM types, core counts, etc
+* Create new cluster named `Slurm-Multiregion` as follows:  
+> cyclecloud import_cluster Slurm-Multiregion -c Slurm -f slurm-multiregion-git.txt  
 
 
