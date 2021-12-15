@@ -5,7 +5,7 @@ This repo contains instructions to create a CycleCloud cluster with Compute VMs 
 
 ## Why would someone want to span an HPC cluster across Azure Regions?  
 
-- _**Capacity**_.  There are times when a singe Azure Region can not accommodate the quantity of compute cores needed.  In this case the workload can be split across multiple regions to get access to all the compute cores needed.  
+- _**Capacity**_.  There are times when a single Azure Region can not accommodate the quantity of compute cores needed.  In this case the workload can be split across multiple regions to get access to all the compute cores requested.  
 - _**Specialty Compute (ie. GPU, FPGA, Infiniband)**_.  An organization created an Azure environment in a specific Region (ie. East US 2) and later requires specialty compute VMs that are not available in that Region.  
 - _**[Public Datasets](https://azure.microsoft.com/en-us/services/open-datasets/#overview)**_.  Azure hosts numerous Public Data Sets but they are specific to Regions (ie. West US 2).  You may have an HPC cluster and Data Lake configured in South Central US but need a compute queue/partition in West US 2 to make use of the Public Data Set (ie. US Labor Force Statistics).  
 
