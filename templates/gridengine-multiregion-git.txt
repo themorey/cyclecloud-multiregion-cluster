@@ -14,6 +14,11 @@ Autoscale = $Autoscale
     Credentials = $Credentials    
     KeyPairLocation = ~/.ssh/cyclecloud.pem
     
+    CloudInit = '''#!/bin/bash
+set -x
+chmod 777 /mnt/resource
+'''
+    
         [[[configuration]]]
         cyclecloud.hosts.standalone_dns.alt_suffix = private.ccmr.net
         cyclecloud.hosts.standalone_dns.subnets = 10.40.0.0/24, 10.41.0.0/24
