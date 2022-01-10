@@ -25,7 +25,7 @@ In the examples above, the standard answer is to create a new cluster in the Azu
 | ------------- |--------------------------------:| 
 | SLURM         | #SBATCH --chdir /mnt/resource  | 
 | GRIDENGINE    |  #$ -wd /mnt/resource         |  
-| OPENPBS       | #PBS -o /mnt/resource          |
+| OPENPBS       |       N/A     |
 | LSF           | -cwd "/mnt/resource          |  
 
 * __Input/Output Files__:  Input and output files should be staged in the Region that runs the job in order to reduce time to run and minimize transfer costs.  
